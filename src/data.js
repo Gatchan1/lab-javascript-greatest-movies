@@ -2001,3 +2001,26 @@ const movies = [
     score: 8
   }
 ];
+
+function orderAlphabetically(moviesArray) {
+  let orderedMovies = moviesArray.map((movie) => {
+      return movie.title;
+  })
+
+
+/*     orderedMovies.sort((a, b) => {
+      if (a.title < b.title) return -1; 
+      if (a.title > b.title) return 1; 
+      if (a.title === 0) return 0;
+  }); */
+
+
+
+  if (orderedMovies.length > 20) {
+      orderedMovies.splice(20);
+  }
+  console.log(orderedMovies)
+  return orderedMovies
+}
+
+orderAlphabetically(movies)
