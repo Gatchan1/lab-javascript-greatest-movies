@@ -13,9 +13,6 @@ function getAllDirectors(moviesArray) {
 
 // Iteration 2: Steven Spielberg. The best? - How many drama movies did STEVEN SPIELBERG direct?
 
-
-// Yo creo que he cumplido el último check, aunque Jasmine no esté de acuerdo..
-
 function howManyMovies(moviesArray) {
     let moviesSteven = moviesArray.filter((movie) => {
         return movie.director === 'Steven Spielberg';
@@ -40,13 +37,16 @@ function scoresAverage(moviesArray) {
       return score;
     })
   
-    let sumScores = moviesScoresFiltered.reduce((accumulator, currentValue) => {
+    let sumScore = moviesScoresFiltered.reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
-    })
+    }) 
 
-    let averageScores = sumScores / moviesScoresFiltered.length;
+    let averageScore = sumScore / moviesArray.length;
+    //We saw with Mariona that here ^^^^^^^ we have to put moviesArray instead of moviesScoresFiltered in order for Jasmine to be happy.
+
 /*     console.log(Math.round(averageScores * 100) /100) */
-    return Math.round(averageScores * 100) /100;
+    return Math.round(averageScore * 100) /100;
+    // return Number(averageScore.toFixed(2))
   }
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
@@ -81,17 +81,30 @@ function orderByYear(moviesArray) {
 function orderAlphabetically(moviesArray) {
     let orderedMovies = moviesArray.map((movie) => {
         return movie.title;
-    })
-
-    orderedMovies.sort()
-
+    });
+    orderedMovies.sort();
     if (orderedMovies.length > 20) orderedMovies.splice(20);
-    
     return orderedMovies;
 }
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes(moviesArray) {}
+
+function turnHoursToMinutes(moviesArray) {
+    let moviesMinutes = JSON.parse(JSON.stringify(moviesArray));
+    moviesMinutes.forEach((movie)=>{
+      let movieDuration = movie.duration;
+      if (movieDuration.length == 2) {
+        movieDuration = movieDuration.slice(0, 1);
+        movieDuration = Number(movieDuration) * 60;
+      } else if (movieDuration.length == 7) {
+        movieDuration = Number(movieDuration.slice(0,1)) * 60 + Number(movieDuration.slice(3,4));
+      } else if (movieDuration.length == 8) {
+        movieDuration = Number(movieDuration.slice(0,1)) * 60 + Number(movieDuration.slice(3,5));
+      }
+      movie.duration = movieDuration;
+    })
+    return moviesMinutes;
+  }
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {}

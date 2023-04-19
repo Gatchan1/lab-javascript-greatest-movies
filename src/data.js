@@ -2002,25 +2002,25 @@ const movies = [
   }
 ];
 
-function orderAlphabetically(moviesArray) {
-  let orderedMovies = moviesArray.map((movie) => {
-      return movie.title;
+
+
+
+function turnHoursToMinutes(moviesArray) {
+  let moviesMinutes = JSON.parse(JSON.stringify(moviesArray));
+  moviesMinutes.forEach((movie)=>{
+    let movieDuration = movie.duration;
+    if (movieDuration.length == 2) {
+      movieDuration = movieDuration.slice(0, 1);
+      movieDuration = Number(movieDuration);
+    } else if (movieDuration.length == 7) {
+      movieDuration = Number(movieDuration.slice(0,1)) * 60 + Number(movieDuration.slice(3,4));
+    } else if (movieDuration.length == 8) {
+      movieDuration = Number(movieDuration.slice(0,1)) * 60 + Number(movieDuration.slice(3,5));
+    }
+    movie.duration = movieDuration;
   })
-
-
-/*     orderedMovies.sort((a, b) => {
-      if (a.title < b.title) return -1; 
-      if (a.title > b.title) return 1; 
-      if (a.title === 0) return 0;
-  }); */
-
-
-
-  if (orderedMovies.length > 20) {
-      orderedMovies.splice(20);
-  }
-  console.log(orderedMovies)
-  return orderedMovies
+  return moviesMinutes;
 }
 
-orderAlphabetically(movies)
+
+turnHoursToMinutes(movies)
